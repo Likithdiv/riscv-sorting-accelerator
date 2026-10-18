@@ -23,6 +23,24 @@ Instructions pass through **Fetch → Decode → Execute → Memory → Writebac
 | `RISC-V/` | Vivado project and timing constraints |
 | `img/` | Saved screenshots, including earlier versions |
 
+## What the scripts do
+
+**`build.ps1` (PowerShell)** runs the build steps. It calls the RISC-V compiler with `main.cpp`, `start.S`, and `link.ld` to produce `build/program.elf`, which contains machine code, data, and their memory addresses. It also saves a memory map (`program.map`) and an assembly listing (`program.lst`), then calls `elf_to_tb.py`.
+
+**`elf_to_tb.py` (Python)** reads that ELF file and generates `tb/cpp_tb.sv`. The generated testbench loads instructions into instruction memory and initialized variables into data memory. It supplies the clock and reset, waits for the CPU to halt, checks the `result` variable and return value from `main`, and prints the cycle count.
+
+```text
+main.cpp + start.S + link.ld
+          | build.ps1 calls the compiler
+     build/program.elf
+          | elf_to_tb.py generates the testbench
+       tb/cpp_tb.sv
+          | Vivado runs the simulation
+     CPU executes the program
+```
+
+Normally, edit `main.cpp` and run `build.ps1`; it calls the Python script automatically. Rebuild after changing C++ rather than editing the generated testbench. These scripts run on your computer and do not become processor hardware. They prepare the simulation; Vivado runs it separately.
+
 ## Run
 
 Requires Python and a RISC-V GCC toolchain with `riscv-none-elf-g++`. From the repository root:
