@@ -1,4 +1,4 @@
-# Five-stage RISC-V processor
+# 5-Stage RISC-V Processor with a Sorting Accelerator
 
 An educational RV32I processor in SystemVerilog with a memory-mapped engine that sorts 64 signed integers.
 
