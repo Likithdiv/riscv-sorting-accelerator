@@ -43,7 +43,7 @@ int main() {
         values[j + 1] = key;
     }
 
-    // Check every element, including duplicates and signed extremes.
+   
     for(unsigned i = 0; i < 64; i++) {
         if(values[i] != expected[i]) {
             failure_index = i;
