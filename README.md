@@ -59,6 +59,8 @@ Select `cpu_tb`, `alu_tb`, or `sort_engine_tb` as simulation top to run their se
 
 C++ loads 64 words, starts sorting, polls DONE, then reads back the results. The engine alternates even and odd compare-swap passes for 64 clock cycles.
 
+Sorting the same 64 signed integers took 19,229 cycles in software and 2,324 cycles with the accelerator—an 8.27× reduction in total program cycles, including startup, data transfers, and result checking.
+
 | Address | Purpose |
 | --- | --- |
 | `0x10000000` | Control: write 1 to start, 2 to clear DONE |
