@@ -169,7 +169,7 @@ always_comb begin
         if(mem_wb.rd == id_ex.rs2) forwarded_b = mem_wb.result;
     end
 
-    // The newer EX/MEM result wins over MEM/WB. Loads need the stall above.
+    // The newer EX/MEM result wins over MEM/WB.
     if(ex_mem.valid && ex_mem.reg_write && !ex_mem.mem_read &&
        !ex_mem.stop && ex_mem.rd != 5'd0) begin
         if(ex_mem.rd == id_ex.rs1) forwarded_a = ex_mem_forward_data;
@@ -218,8 +218,7 @@ data_memory #(.WORDS(DMEM_WORDS)) dmem(.clk(clk),.we(memory_we && !sort_select),
     .address(ex_mem.alu_result),.write_data(memory_write_data),
     .byte_enable(byte_enable),.read_data(ram_read_data),.access_fault(ram_fault));
 
-// MMIO requests are issued only by valid, nonfaulting MEM instructions.
-// Fault checking uses the request; the peripheral gates its own writes on it.
+
 assign sort_select = (ex_mem.alu_result[31:9] == SORT_BASE[31:9]);
 assign sort_read = !rst && !halted && !stopping && ex_mem.valid &&
                    !ex_mem.stop && !ex_mem.fault && ex_mem.mem_read && sort_select;
