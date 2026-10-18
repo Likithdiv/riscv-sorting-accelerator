@@ -430,22 +430,22 @@ initial begin
     if(cpu1.dmem.memory[0] !== 32'h12345678) $fatal(1,"Error: misaligned JALR changed memory");
     $display("PASS: misaligned JALR");
 
-    // ECALL educational halt
+    // ECALL halt
     @(negedge clk);
     rst = 1'b1;
     cpu1.imem.memory[0] = 32'h00000073;
     cpu1.dmem.memory[0] = 32'h12345678;
     @(negedge clk);
     if(pc_value !== 32'd0 || halted !== 1'b0 || trap !== 1'b0)
-        $fatal(1,"Error: reset failed before ECALL educational halt");
+        $fatal(1,"Error: reset failed before ECALL halt");
     rst = 1'b0;
     wait(halted === 1'b1);
     #1;
-    if(trap !== 1'b0) $fatal(1,"Error: ECALL educational halt trap flag");
-    if(pc_value !== 32'd0) $fatal(1,"Error: ECALL educational halt final PC");
-    if(cpu1.rf.registers[6] !== 32'd0) $fatal(1,"Error: ECALL educational halt changed x6");
-    if(cpu1.dmem.memory[0] !== 32'h12345678) $fatal(1,"Error: ECALL educational halt changed memory");
-    $display("PASS: ECALL educational halt");
+    if(trap !== 1'b0) $fatal(1,"Error: ECALL halt trap flag");
+    if(pc_value !== 32'd0) $fatal(1,"Error: ECALL halt final PC");
+    if(cpu1.rf.registers[6] !== 32'd0) $fatal(1,"Error: ECALL halt changed x6");
+    if(cpu1.dmem.memory[0] !== 32'h12345678) $fatal(1,"Error: ECALL halt changed memory");
+    $display("PASS: ECALL halt");
 
     // An untaken branch must not fault on its misaligned target.
     @(negedge clk);

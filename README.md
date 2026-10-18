@@ -1,6 +1,6 @@
 # 5-Stage RISC-V Processor with a Sorting Accelerator
 
-An educational RV32I processor in SystemVerilog with a memory-mapped engine that sorts 64 signed integers.
+An RV32I processor in SystemVerilog with a memory-mapped engine that sorts 64 signed integers.
 
 Instructions pass through **Fetch → Decode → Execute → Memory → Writeback**. Forwarding handles data dependencies, load-use hazards stall the pipeline, and taken branches/jumps flush younger instructions.
 
@@ -70,7 +70,7 @@ Use aligned 32-bit accesses. Load all 64 words before starting.
 
 ## Scope
 
-Supports RV32I integer operations, branches, jumps, and byte/halfword/word loads and stores. ECALL/EBREAK halt this teaching design; invalid or misaligned accesses halt with `trap` asserted. No interrupts, privileged CSRs, caches, or hardware multiply/divide.
+Supports RV32I integer operations, branches, jumps, and byte/halfword/word loads and stores. ECALL/EBREAK halt the processor instead of entering a trap handler; invalid or misaligned accesses halt with `trap` asserted. No interrupts, privileged CSRs, caches, or hardware multiply/divide.
 
 The default instruction memory contains a fixed demo. The C++ testbench loads the compiled program for simulation. Timing constraints and screenshots do not establish timing closure for the current design.
 
