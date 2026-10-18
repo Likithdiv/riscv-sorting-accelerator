@@ -1,0 +1,22 @@
+# Vivado generated files
+**/.Xil/
+RISC-V/*.cache/
+RISC-V/*.runs/
+RISC-V/*.sim/
+RISC-V/*.gen/
+RISC-V/*.hw/
+RISC-V/*.ip_user_files/
+*.jou
+*.log
+*.str
+*.wdb
+*.wcfg
+
+# Compiler output
+**/build/
+*.exe
+*.o
+*.elf
+*.vvp
+__pycache__/
+*.pyc
